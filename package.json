@@ -1,9 +1,9 @@
 {
+  "homepage": "https://subashrimal01.github.io/Assessment/",
   "name": "assessment",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://subashrimal01.github.io/Assessment/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
