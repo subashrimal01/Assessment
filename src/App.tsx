@@ -4,7 +4,7 @@ import ProductDetail from "./components/Product/ProductDetail";
 
 function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<ProductLists />} />
         <Route path="/products/:slug" element={<ProductDetail />} />
