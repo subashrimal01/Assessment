@@ -6,7 +6,9 @@ export default function ProductDetail() {
   const { slug } = useParams<{ slug: string }>();
   const { data, isSuccess } = useProductDetail(slug as string);
   const productDetail = data?.data;
-  const [selectedImage, setSelectedImage] = useState(productDetail?.images[0]);
+  const [selectedImage, setSelectedImage] = useState<string | undefined>(
+    productDetail?.images[0]
+  );
 
   useEffect(() => {
     if (isSuccess) {
@@ -50,13 +52,13 @@ export default function ProductDetail() {
                 {Array.from({ length: 5 }).map((_, i) => (
                   <svg
                     key={i}
-                    fill={i < productDetail?.ratings ? "currentColor" : "none"}
+                    fill={"currentColor"}
                     stroke="currentColor"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
                     className={`w-4 h-4 text-indigo-500 ${
-                      i < productDetail?.ratings
+                      i < (productDetail?.ratings ?? 0)
                         ? "text-indigo-500"
                         : "text-gray-300"
                     }`}
@@ -76,7 +78,7 @@ export default function ProductDetail() {
                 __html: productDetail?.ingredient ?? "",
               }}
             />
-            {productDetail?.offPercent > 0 && (
+            {(productDetail?.offPercent as number) > 0 ? (
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                 <s className="title-font font-medium text-2xl text-gray-900">
                   ${productDetail?.strikePrice}
@@ -88,9 +90,9 @@ export default function ProductDetail() {
                   {productDetail?.offPercent}% Off
                 </span>
               </div>
-            )}
+            ) : null}
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-              {productDetail?.colorVariants?.length > 0 && (
+              {(productDetail?.colorVariants as [])?.length > 0 ? (
                 <div className="flex">
                   <span className="mr-3">Color</span>
                   {productDetail?.colorVariants?.map((color) => (
@@ -101,8 +103,8 @@ export default function ProductDetail() {
                     />
                   ))}
                 </div>
-              )}
-              {productDetail?.sizeVariants?.length > 0 && (
+              ) : null}
+              {(productDetail?.sizeVariants as [])?.length > 0 ? (
                 <div className="flex ml-6 items-center">
                   <span className="mr-3">{productDetail?.variantType}</span>
                   <div className="relative">
@@ -126,7 +128,7 @@ export default function ProductDetail() {
                     </span>
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
             <div className="flex">
               <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">

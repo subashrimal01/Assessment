@@ -51,7 +51,7 @@ export interface ProductDetailType {
   offPercent: number;
   price: number;
   ratedBy: number;
-  ratings: number;
+  ratings: number | undefined;
   brand: { name: string; slug: string; _id: string };
   breadCrumbs: { name: string; slug: string; _id: string }[];
   category: {
